@@ -94,7 +94,7 @@ def main():
 
     for router in isis_db:
 
-        if router not in skiplist:
+        if skiplist and router not in skiplist:
 
             try:
 
