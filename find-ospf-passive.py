@@ -76,22 +76,12 @@ def main():
 
     port = 22
 
-    #isis_db = ['10.0.13.64'] # CCSRTR-SWPE-01
-
-    #isis_db = ['10.192.254.16'] # RBNRTR-HCOR-03
-
-    #isis_db = ['10.0.13.40', '172.28.0.1']
-
     # SKIPLIST:
-    # 10.212.254.48 - ProbeError, is okay
     # 10.0.14.170 - Old Junos, is okay
-    # 10.0.30.247 - ProbeError, is okay
     # 10.136.254.16 - HCOR
     # 10.192.254.16 - HCOR
-    # 10.192.254.17 - HOCR
-    #skiplist = ['10.212.254.48', '10.0.14.170', '10.0.30.247', '10.136.254.16', '10.192.254.16', '10.192.254.17']
-    #skiplist = ['10.212.254.48', '10.0.14.170', '10.0.30.247']
-    skiplist = []
+    # 10.192.254.17 - HCOR
+    skiplist = ['10.0.14.170']
 
     for router in isis_db:
 
