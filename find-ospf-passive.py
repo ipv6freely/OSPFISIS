@@ -91,10 +91,11 @@ def main():
     # 10.192.254.17 - HOCR
     #skiplist = ['10.212.254.48', '10.0.14.170', '10.0.30.247', '10.136.254.16', '10.192.254.16', '10.192.254.17']
     #skiplist = ['10.212.254.48', '10.0.14.170', '10.0.30.247']
+    skiplist = []
 
     for router in isis_db:
 
-        if skiplist is not None and router not in skiplist:
+        if router not in skiplist:
 
             try:
 
