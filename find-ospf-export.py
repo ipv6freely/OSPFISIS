@@ -52,8 +52,8 @@ def main():
     # 10.136.254.16 - HCOR
     # 10.192.254.16 - HCOR
     # 10.192.254.17 - HCOR
-    #skiplist = ['10.0.14.170']
-    skiplist = []
+    skiplist = ['10.0.14.170']
+    #skiplist = []
 
     #port = 2222
     port = 22
