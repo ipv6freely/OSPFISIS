@@ -30,11 +30,11 @@ def get_isis_db(router, port):
 
 def get_ospf_export(client):
     response = client.device.rpc.get_config()
-    ospf_interfaces = response.findtext('protocols/ospf/export')
-    # if ospf_interfaces is not None and :
+    ospf_export = response.findtext('protocols/ospf/export')
+    # if ospf_export is not None and :
     #     return 'inactive'
-    if ospf_interfaces is not None:
-        return 'yes'
+    if ospf_export is not None:
+        return ospf_export
     else:
         return 'no'
 
@@ -70,12 +70,12 @@ def main():
 
                     router_has_export = get_ospf_export(client)
 
-                    if router_has_export is 'yes':
-                        print(f'{router}\tEXPORT: YES')
+                    if router_has_export is 'no':
+                        print(f'{router}\tEXPORT: NO')
                     elif router_has_export is 'inactive':
                         print(f'{router}\tEXPORT: INACTIVE')
                     else:
-                        print(f'{router}\tEXPORT: NO')
+                        print(f'{router}\tEXPORT: {router_has_export}')
 
             except Exception as e:
                 print(f'{router} FAILED: {e}')            
