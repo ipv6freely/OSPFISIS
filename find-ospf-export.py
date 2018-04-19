@@ -38,6 +38,13 @@ def get_ospf_export(client):
     else:
         return 'no'
 
+def check_version(client):
+    os_version = client.get_facts()
+    if float(os_version['os_version'][:4]) > 11:
+        return True
+    else:
+        return False
+
 def main():
 
     startTime = datetime.now()
@@ -45,6 +52,7 @@ def main():
     print(f'Getting IS-IS database...')
     isis_db = get_isis_db(router = '10.192.254.18', port = 22)
     #isis_db = ['127.0.0.1']
+    #isis_db = ['10.0.0.20', '10.0.13.58', '10.0.14.169', '10.0.14.170', '172.28.0.1']
     print(f'Got {len(isis_db)} entries!\n')
 
     # SKIPLIST:
@@ -52,8 +60,8 @@ def main():
     # 10.136.254.16 - HCOR
     # 10.192.254.16 - HCOR
     # 10.192.254.17 - HCOR
-    skiplist = ['10.0.14.170']
-    #skiplist = []
+    #skiplist = ['10.0.14.170']
+    skiplist = []
 
     #port = 2222
     port = 22
@@ -68,15 +76,20 @@ def main():
                             password=os.environ['ADPASSWORD'], 
                             optional_args={'port': port, 'config_format': 'set'}) as client:
 
-                    router_has_export = get_ospf_export(client)
+                    version = check_version(client)
+                    if version:
 
-                    if router_has_export is 'no':
-                        pass
-                    #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: NO')
-                    # elif router_has_export is 'inactive':
-                    #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: INACTIVE')
+                        router_has_export = get_ospf_export(client)
+
+                        if router_has_export is 'no':
+                            pass
+                        #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: NO')
+                        # elif router_has_export is 'inactive':
+                        #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: INACTIVE')
+                        else:
+                            print(f'{index + 1:03}/{len(isis_db):<6}{router:<18}EXPORT: {router_has_export}')
                     else:
-                        print(f'{index + 1:03}/{len(isis_db)}\t{router}\tEXPORT: {router_has_export}')
+                        print(f'{index + 1:03}/{len(isis_db):<6}{router:<18}!!!!!!! Junos version too old for NAPALM')
 
             except Exception as e:
                 print(f'{router} FAILED: {e}')            
