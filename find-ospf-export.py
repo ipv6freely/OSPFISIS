@@ -58,7 +58,7 @@ def main():
     #port = 2222
     port = 22
 
-    for router in isis_db:
+    for index, router in enumerate(isis_db):
         if router not in skiplist:
 
             try:
@@ -76,7 +76,7 @@ def main():
                     # elif router_has_export is 'inactive':
                     #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: INACTIVE')
                     else:
-                        print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: {router_has_export}')
+                        print(f'{index + 1:03}/{len(isis_db)}\t{router}\tEXPORT: {router_has_export}')
 
             except Exception as e:
                 print(f'{router} FAILED: {e}')            
