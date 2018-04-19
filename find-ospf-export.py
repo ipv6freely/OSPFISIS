@@ -71,9 +71,10 @@ def main():
                     router_has_export = get_ospf_export(client)
 
                     if router_has_export is 'no':
-                        print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: NO')
-                    elif router_has_export is 'inactive':
-                        print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: INACTIVE')
+                        pass
+                    #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: NO')
+                    # elif router_has_export is 'inactive':
+                    #     print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: INACTIVE')
                     else:
                         print(f'{isis_db.index(router) + 1:03}/{len(isis_db)}\t{router}\tEXPORT: {router_has_export}')
 
